@@ -16,10 +16,25 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.2.5</version>
     </dependency>
+    <!--oauth 1.0 and httpclient4-->
+    <dependency>
+      <artifactId>signpost-commonshttp4</artifactId>
+      <groupId>oauth.signpost</groupId>
+      <version>1.2.1.2</version>
+    </dependency>
+
+    <!--Jackson JSON-->
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>2.9.4</version>
+    </dependency>
+
   </dependencies>
 </project>

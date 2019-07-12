@@ -73,10 +73,9 @@ select * from customer where customer.id = id;
 ## Design and Implementaion
 
 * PostgreSQL database scheme and table_info
-* p1
-* p2
-
+![p1](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Entity%20Relationship%20Diagram.png)
 * Workflow
+![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-11%20at%204.58.48%20PM.png)
 
   * Prepare Database connection manager
 

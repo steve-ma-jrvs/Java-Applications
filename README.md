@@ -70,7 +70,7 @@ select * from customer where customer.id = id;
 
 * it selects the record from the customer table with the certain id.
 
-##Design and Implementaion
+## Design and Implementaion
 
 * PostgreSQL database scheme and table_info
 * p1
@@ -109,7 +109,7 @@ select * from customer where customer.id = id;
 
 ## Usage
 
-####Simplified Tweet Object
+#### Simplified Tweet Object
 
 In this app, we will only focus on some particular fields in the tweet object.  
 
@@ -131,7 +131,7 @@ Tweet object docks [link](https://developer.twitter.com/en/docs/tweets/data-dict
 }
 ```
 
-####Create a tweet on your timeline
+#### Create a tweet on your timeline
 
 ```
 USAGE: TwitterCLI post "tweet_text" "latitude:longitude"
@@ -142,7 +142,7 @@ Description: create a tweet with a geotag and output the created tweet object (s
 * Tweet_text - tweet_text cannot exceed 140 UTF-8 encoded characters.
 * Latitude:longitude - Geo location
 
-####Read/Show a tweet by ID
+#### Read/Show a tweet by ID
 
 ```
 USAGE: TwitterCLI show tweet_id [field1, field2]
@@ -153,7 +153,7 @@ Description: Lookup a tweet by ID and print the tweet object in JSON format. Sho
 * Tweet_id - same as id_str in the tweet object
 * [field1, field2] - (Optional) A common-separated list of top-level fields from the tweet object (similar to SELECT clause in SQL)
 
-####Delete a tweet by tweet ID
+#### Delete a tweet by tweet ID
 
 ```
 USAGE: TwitterCLI delete tweet_ids
@@ -175,7 +175,7 @@ Description: Delete a list of tweets by id and print deleted tweet object
 
 <mark> TODO Diagram</mark>
 
-####Implement `HttpHelper`
+#### Implement `HttpHelper`
 
 ```java
 package ca.jrvs.apps.twitter.dao.helper;
@@ -234,7 +234,7 @@ public interface TwitterService {
 
 # Spring Framework
 
-####Traditional Dependency Management
+#### Traditional Dependency Management
 
 * Diagram for `TwitterCLI` app
 

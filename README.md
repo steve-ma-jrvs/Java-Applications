@@ -1,3 +1,12 @@
+# Overview
+This project includes three Java Apps
+* Java Grep App
+* Java JDBC App
+* Twitter CLI App
+**Java Grep App** is focused on Regex Pattern, Lambda & Steam API and to get familiar with Maven.
+**Java JDBC App** is based on the Lynda Java JDBC course([Link](https://www.lynda.com/Java-tutorials/Learning-JDBC/779748-2.html)) and to get Java JDBC implementation.
+**Twitter CLI App** is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..   
+
 # Java Grep App
 ## Introduction
 - Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file.

@@ -27,9 +27,9 @@ egrep -r {regex} {rootPath} > {outFile}
 ```pseudocode
 matchedLines = []
 for file in listFiles(rootDir)
-	for line in readlines(file)
-			if containsPattern(line)
-				matchedLines.add(line)
+  for line in readlines(file)
+    if containsPattern(line)
+      matchedLines.add(line)
 writeToFile(matchedLines)
 ```
 

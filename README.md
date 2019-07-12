@@ -173,7 +173,7 @@ Description: Delete a list of tweets by id and print deleted tweet object
 | Runner     | Parse user CLI inputs and then calls the corresponding service methods |
 | Main       | Create above components and start applications               |
 
-<mark> TODO Diagram</mark>
+![p3](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Twitter.png)
 
 #### Implement `HttpHelper`
 
@@ -261,6 +261,8 @@ public interface TwitterService {
   | @Service    | `TwitterServiceIMP`                    |
 
 * **SpringBoot Approach**
+
+![p4](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-10%20at%204.05.44%20PM.png)
 
   * Create a properties file `java_apps/src/main/resources/application.properties` and write
 

@@ -1,18 +1,26 @@
 package ca.jrvs.apps.twitter.dto;
 
 
-import java.util.Arrays;
+import java.util.List;
 
 public class Hashtag {
 
-  public int[] indices;
-  public String text;
+  private List<Long> indices = null;
+  private String text;
 
-  @Override
-  public String toString() {
-    return "Hashtag{" +
-        "indices=" + Arrays.toString(indices) +
-        ", text='" + text + '\'' +
-        '}';
+  public List<Long> getIndices() {
+    return indices;
+  }
+
+  public void setIndices(List<Long> indices) {
+    this.indices = indices;
+  }
+
+  public String getText() {
+    return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
   }
 }

@@ -1,11 +1,12 @@
 package ca.jrvs.apps.twitter.dto;
 
-import java.util.Arrays;
+import java.util.List;
+
 
 public class Coordinates {
 
   private String type;
-  private float[] coordinates;
+  private List<Double> coordinates = null;
 
   public String getType() {
     return type;
@@ -15,19 +16,12 @@ public class Coordinates {
     this.type = type;
   }
 
-  public float[] getCoordinates() {
+  public List<Double> getCoordinates() {
     return coordinates;
   }
 
-  public void setCoordinates(float[] coordinates) {
+  public void setCoordinates(List<Double> coordinates) {
     this.coordinates = coordinates;
   }
 
-  @Override
-  public String toString() {
-    return "Coordinates{" +
-        "type='" + type + '\'' +
-        ", coordinates=" + Arrays.toString(coordinates) +
-        '}';
-  }
 }

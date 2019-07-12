@@ -20,9 +20,9 @@ public class JDBCExecutor {
       ProductDAO productDAO = new ProductDAO(connection);
       SalespersonDAO salespersonDAO = new SalespersonDAO(connection);
       Order_itemDAO order_itemDAO = new Order_itemDAO(connection);
-
       Orders orders = ordersDAO.findById(1000);
       System.out.println(orders);
+
       List<Order_item> order_items = order_itemDAO.findbyOrderId(orders.getId());
       Customer customer = customerDAO.findById(orders.getCustomer_id());
       System.out.println(customer);
@@ -34,11 +34,9 @@ public class JDBCExecutor {
         System.out.println(product);
       }
 
-
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
      */
 
     try {

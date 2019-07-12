@@ -6,10 +6,10 @@ import org.apache.http.entity.StringEntity;
 
 public interface HttpHelper {
 
-  HttpResponse httpPost(URI uri) throws Exception;
+  HttpResponse httpPost(URI uri);
 
   HttpResponse httpPost(URI uri, StringEntity stringEntity);
 
-  HttpResponse httpGet(URI uri) throws Exception;
+  HttpResponse httpGet(URI uri);
 
 }

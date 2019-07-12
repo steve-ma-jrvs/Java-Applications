@@ -1,7 +1,7 @@
 package ca.jrvs.apps.twitter.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Arrays;
+import java.util.List;
 
 @JsonIgnoreProperties(
     {
@@ -14,14 +14,22 @@ import java.util.Arrays;
 )
 public class Entities {
 
-  public Hashtag[] hashtags;
-  public UserMention[] user_mentions;
+  private List<Hashtag> hashtags = null;
+  private List<UserMention> userMentions = null;
 
-  @Override
-  public String toString() {
-    return "Entities{" +
-        "hashtags=" + Arrays.toString(hashtags) +
-        ", user_mentions=" + Arrays.toString(user_mentions) +
-        '}';
+  public List<Hashtag> getHashtags() {
+    return hashtags;
+  }
+
+  public void setHashtags(List<Hashtag> hashtags) {
+    this.hashtags = hashtags;
+  }
+
+  public List<UserMention> getUserMentions() {
+    return userMentions;
+  }
+
+  public void setUserMentions(List<UserMention> userMentions) {
+    this.userMentions = userMentions;
   }
 }

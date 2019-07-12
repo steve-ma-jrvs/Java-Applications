@@ -1,130 +1,202 @@
 package ca.jrvs.apps.twitter.dao;
 
-import ca.jrvs.apps.twitter.dao.helper.ApacheHttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dto.Tweet;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gdata.util.common.base.PercentEscaper;
-import java.io.BufferedReader;
+import ca.jrvs.apps.twitter.util.JsonUtil;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class TwitterRestDao implements CrdRepository<Tweet, String> {
+@Repository
+public class TwitterRestDao implements CrdDao<Tweet, String> {
 
-  private HttpHelper httpHelper;
+    //URI constants
+    private static final String API_BASE_URI = "https://api.twitter.com";
+    private static final String POST_PATH = "/1.1/statuses/update.json";
+    private static final String SHOW_PATH = "/1.1/statuses/show.json";
+    private static final String DELETE_PATH = "/1.1/statuses/destroy";
+    //URI symbols
+    private static final String QUERY_SYM = "?";
+    private static final String AMPERSAND = "&";
+    private static final String EQUAL = "=";
+    //Response code
+    private static final int HTTP_OK = 200;
 
+    private HttpHelper httpHelper;
 
-  /**
-   * Parse JSON string to a object
-   *
-   * @param json JSON str
-   * @param clazz object class
-   * @param <T> Type
-   * @return Object
-   */
-  public static <T> T toObjectFromJson(String json, Class clazz) throws IOException {
+    @Autowired
+    public TwitterRestDao(HttpHelper httpHelper) {
+        this.httpHelper = httpHelper;
 
-    ObjectMapper mapper = new ObjectMapper();
-
-    return (T) mapper.readValue(json, clazz);
-
-  }
-
-  @Override
-  public Tweet save(Tweet entity) {
-
-    ApacheHttpHelper apacheHttpHelper = new ApacheHttpHelper();
-
-    String uriString = "https://api.twitter.com/1.1/statuses/update.json?status=";
-
-    String status = entity.getText();
-
-    PercentEscaper percentEscaper = new PercentEscaper("", false);
-
-    URI uri = URI.create(uriString + percentEscaper.escape(status));
-
-    //Coordinates coordinates = entity.getCoordinates();
-
-    String responseString = "";
-    Tweet tweet = new Tweet();
-
-    try {
-      HttpResponse response = apacheHttpHelper.httpPost(uri);
-      InputStream content = response.getEntity().getContent();
-
-      BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-      String s = "";
-      while ((s = buffer.readLine()) != null) {
-        responseString += s;
-      }
-
-      tweet = toObjectFromJson(responseString, Tweet.class);
-
-    } catch (Exception e) {
-      e.printStackTrace();
     }
 
-    return tweet;
-  }
+    @Override
+    public Tweet create(Tweet entity) {
 
+        //Construct URI
+        URI uri;
+        try {
+            uri = getPostURI(entity);
+        } catch (URISyntaxException | UnsupportedEncodingException e) {
+            throw new IllegalArgumentException("Invalid tweet input", e);
+        }
 
-  @Override
-  public Tweet findById(String s) {
+        //Execute Http Request
+        HttpResponse response = httpHelper.httpPost(uri);
 
-    ApacheHttpHelper apacheHttpHelper = new ApacheHttpHelper();
-
-    URI uri = URI.create("https://api.twitter.com/1.1/statuses/show.json?id=" + s);
-
-    Tweet tweet = new Tweet();
-
-    try {
-      String json = EntityUtils.toString(apacheHttpHelper.httpGet(uri).getEntity());
-      tweet = toObjectFromJson(json, Tweet.class);
-
-    } catch (Exception e) {
-      e.printStackTrace();
+        //Validate response and deser response to Tweet Object
+        return parseResponseBody(response);
     }
 
-    return tweet;
 
-  }
+    @Override
+    public Tweet findById(String id) {
 
-  @Override
-  public Tweet deleteById(String s) {
+        //Construct URI
+        URI uri;
+        try {
+            uri = getShowUri(id);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Unable to construct URI", e);
+        }
 
-    ApacheHttpHelper apacheHttpHelper = new ApacheHttpHelper();
+        //Execute Http Request
+        HttpResponse response = httpHelper.httpGet(uri);
 
-    String uriString = "https://api.twitter.com/1.1/statuses/destroy/";
+        //Validate response and deser response to Tweet Object
+        return parseResponseBody(response);
 
-    PercentEscaper percentEscaper = new PercentEscaper("", false);
-
-    URI uri = URI.create(uriString + percentEscaper.escape(s) + ".json");
-
-    //Coordinates coordinates = entity.getCoordinates();
-
-    String responseString = "";
-    Tweet tweet = new Tweet();
-
-    try {
-      HttpResponse response = apacheHttpHelper.httpPost(uri);
-      InputStream content = response.getEntity().getContent();
-
-      BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-      String text;
-      while ((text = buffer.readLine()) != null) {
-        responseString += text;
-      }
-
-      tweet = toObjectFromJson(responseString, Tweet.class);
-
-    } catch (Exception e) {
-      e.printStackTrace();
     }
 
-    return tweet;
-  }
+    @Override
+    public Tweet deleteById(String s) {
+
+        //Construct URI
+        URI uri;
+        try {
+            uri = getDeleteUri(s);
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException("Unable to construct URI", e);
+        }
+
+        //Execute HTTP Request
+        HttpResponse response = httpHelper.httpPost(uri);
+
+        //Validate response and deser response to Tweet object
+        return parseResponseBody(response);
+    }
+
+
+    /**
+     * Construct a twitter POST URI
+     * e.g. https://api.twitter.com/1.1/statuses/update.json?status=some_text&lat=11.11&long=-22.22
+     *
+     * @throws URISyntaxException           when URI is invalid
+     * @throws UnsupportedEncodingException when failed to encode text
+     */
+    protected URI getPostURI(Tweet tweet) throws URISyntaxException, UnsupportedEncodingException {
+        String text = tweet.getText();
+        Double longitude = tweet.getCoordinates().getCoordinates().get(0);
+        Double latitude = tweet.getCoordinates().getCoordinates().get(1);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(API_BASE_URI)
+                .append(POST_PATH)
+                .append(QUERY_SYM);
+
+        appendQueryParam(sb, "status", URLEncoder.encode(text, StandardCharsets.UTF_8.name()), true);
+        appendQueryParam(sb, "long", longitude.toString(), false);
+        appendQueryParam(sb, "lat", latitude.toString(), false);
+
+        return new URI(sb.toString());
+    }
+
+
+    /**
+     * Construct a twitter SHOW URI https://api.twitter.com/1.1/statuses/show.json?id=210462857140252672
+     *
+     * @throws URISyntaxException when URI is invalid
+     */
+    protected URI getShowUri(String id) throws URISyntaxException {
+        StringBuilder sb = new StringBuilder();
+        sb.append(API_BASE_URI)
+                .append(SHOW_PATH)
+                .append(QUERY_SYM);
+        appendQueryParam(sb, "id", id, true);
+        return new URI(sb.toString());
+    }
+
+
+    /**
+     * e.g. https://api.twitter.com/1.1/statuses/destroy/240854986559455234.json
+     */
+    protected URI getDeleteUri(String id) throws URISyntaxException {
+        StringBuilder sb = new StringBuilder();
+        sb.append(API_BASE_URI)
+                .append(DELETE_PATH)
+                .append("/")
+                .append(id)
+                .append(".json");
+
+        return new URI(sb.toString());
+    }
+
+
+    private void appendQueryParam(StringBuilder sb, String key, String value, boolean firstParam) {
+        if (!firstParam) {
+            sb.append(AMPERSAND);
+        }
+        sb.append(key)
+                .append(EQUAL)
+                .append(value);
+    }
+
+
+    /**
+     * Check response status code Convert Response Entity to Tweet
+     */
+    protected Tweet parseResponseBody(HttpResponse response) {
+        Tweet tweet = null;
+
+        //Check response status
+        int status = response.getStatusLine().getStatusCode();
+        if (status != HTTP_OK) {
+            try {
+                System.out.println(EntityUtils.toString(response.getEntity()));
+            } catch (IOException e) {
+                System.out.println("Response has no entity");
+            }
+            throw new RuntimeException("Unexpected HTTP status:" + status);
+        }
+
+        if (response.getEntity() == null) {
+            throw new RuntimeException("Empty response body");
+        }
+
+        //Convert Response Entity to str
+        String jsonStr;
+        try {
+            jsonStr = EntityUtils.toString(response.getEntity());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to convert entity to String", e);
+        }
+
+        //Deser JSON string to Tweet object
+        try {
+            tweet = (Tweet) JsonUtil.toObjectFromJson(jsonStr, Tweet.class);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to convert JSON str to Object", e);
+        }
+
+        return tweet;
+    }
 }

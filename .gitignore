@@ -7,3 +7,4 @@
 images/.DS_Store
 jdbc_sql/postgres/
 target/
+.idea/codeStyles .idea/compiler.xml .idea/encodings.xml .idea/misc.xml .idea/uiDesigner.xml .idea/vcs.xml .idea/workspace.xml

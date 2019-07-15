@@ -1,110 +1,9 @@
+# Still Working On it...
 # Overview
 This project includes three Java Apps
+* **Twitter CLI App** is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..   
 * **Java Grep App** is focused on Regex Pattern, Lambda & Steam API and to get familiar with Maven.  
 * **Java JDBC App** is based on the Lynda Java JDBC course([Link](https://www.lynda.com/Java-tutorials/Learning-JDBC/779748-2.html)) and to get Java JDBC implementation.  
-* **Twitter CLI App** is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..   
-
-# Java Grep App
-## Introduction
-- Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file.
-## Usage
-- The app takes three arguments:
-```
-USAGE: regex rootPath outFile  
-
-Similar to  
-egrep -r {regex} {rootPath} > {outFile}
-```
-
-- regex - a special text string for describing a search pattern
-- rootPath - root directory path
-- outFile - output file name
-- Demo:
-```python
-#note: regex must match entire line.  
-.*data.* ~/dev/test /tmp/grep.out
-```
-
-* It searches all files in `~/dev/test` directory, and output lines contain `data` keyword to the output file `/tmp/grep.out`
-
-## Design and Implementaion
-- Pseudo code and workflow
-
-```pseudocode
-matchedLines = []
-for file in listFiles(rootDir)
-  for line in readlines(file)
-    if containsPattern(line)
-      matchedLines.add(line)
-writeToFile(matchedLines)
-```
-
-- Libraries
-  - Use Lambda and Stream API
-  - Use Maven to manage the project and its dependencies
-- <mark>Todo Diagrams</mark>
-## Enhencements and Issues
-
-* The app would return all lines matched the search pattern without exception, so may improve this app with centain filter.
-* The app only takes one keywork as a search pattern, so may add more arguments to do a further search. E.g. `lines with pattern A & pattern B` , `lines with pattern A but not pattern B`, etc..
-
-# Java JDBC App
-
-## Introduction
-
-*  Java JDBC App is a Java Database Connectivity application. The app connects the containerized Postgresql database and applies CRUD(Create, Read, Update and Delete) data access pattern with created DAO(Data Access Object) and DTO(Data Transfer Object).
-
-## Usage
-
-* The app takes arguments
-
-```
-USAGE: tablename query_keyword query_arguments
-```
-
-* Tablename - a specific table in the database { customer | order | salesperson | product }
-* query_keyword - { select | insert | update | delete }
-* query_arguments - row id and record arguments in order
-* Demo:
-
-```sql
-customer select id
-
-similar to:
-select * from customer where customer.id = id;
-```
-
-* it selects the record from the customer table with the certain id.
-
-## Design and Implementaion
-
-* PostgreSQL database scheme and table_info
-![p1](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Entity%20Relationship%20Diagram.png)
-* Workflow
-![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-11%20at%204.58.48%20PM.png)
-
-  * Prepare Database connection manager
-
-  * Create DTO for each table to pass the data
-
-  * Create DAO for each table to apply CRUD
-
-    * Create preparestatement, e.g. 
-
-    * Demo:
-
-    * ```SQL
-      private static final String GET_ONE = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode FROM customer WHERE customer_id=?";
-      ```
-
-  * Pass statement with connection manager to postgreSQL database and return the result
-
-## Enhencements and Issues
-
-* Need to do preparestatement in each DAO
-* Usage is limited 
-
-
 
 # Twitter CLI App
 
@@ -284,3 +183,107 @@ public interface TwitterService {
     * `@ComponentScan`
 
   * In this app, we annotate the `TwitterCLISpringBoot` class with `@SpringBootApplication(scanBasePackages = "ca.jrvs.apps.twitter")`
+
+## Enhancements and Issues
+
+
+
+# Java Grep App
+## Introduction
+- Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file.
+## Usage
+- The app takes three arguments:
+```
+USAGE: regex rootPath outFile  
+
+Similar to  
+egrep -r {regex} {rootPath} > {outFile}
+```
+
+- regex - a special text string for describing a search pattern
+- rootPath - root directory path
+- outFile - output file name
+- Demo:
+```python
+#note: regex must match entire line.  
+.*data.* ~/dev/test /tmp/grep.out
+```
+
+* It searches all files in `~/dev/test` directory, and output lines contain `data` keyword to the output file `/tmp/grep.out`
+
+## Design and Implementation
+- Pseudo code and workflow
+
+```pseudocode
+matchedLines = []
+for file in listFiles(rootDir)
+  for line in readlines(file)
+    if containsPattern(line)
+      matchedLines.add(line)
+writeToFile(matchedLines)
+```
+
+- Libraries
+  - Use Lambda and Stream API
+  - Use Maven to manage the project and its dependencies
+- <mark>Todo Diagrams</mark>
+## Enhancements and Issues
+
+* The app would return all lines matched the search pattern without exception, so may improve this app with centain filter.
+* The app only takes one keywork as a search pattern, so may add more arguments to do a further search. E.g. `lines with pattern A & pattern B` , `lines with pattern A but not pattern B`, etc..
+
+# Java JDBC App
+
+## Introduction
+
+*  Java JDBC App is a Java Database Connectivity application. The app connects the containerized Postgresql database and applies CRUD(Create, Read, Update and Delete) data access pattern with created DAO(Data Access Object) and DTO(Data Transfer Object).
+
+## Usage
+
+* The app takes arguments
+
+```
+USAGE: tablename query_keyword query_arguments
+```
+
+* Tablename - a specific table in the database { customer | order | salesperson | product }
+* query_keyword - { select | insert | update | delete }
+* query_arguments - row id and record arguments in order
+* Demo:
+
+```sql
+customer select id
+
+similar to:
+select * from customer where customer.id = id;
+```
+
+* it selects the record from the customer table with the certain id.
+
+## Design and Implementation
+
+* PostgreSQL database scheme and table_info
+![p1](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Entity%20Relationship%20Diagram.png)
+* Workflow
+![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-11%20at%204.58.48%20PM.png)
+
+  * Prepare Database connection manager
+
+  * Create DTO for each table to pass the data
+
+  * Create DAO for each table to apply CRUD
+
+    * Create preparestatement, e.g. 
+
+    * Demo:
+
+    * ```SQL
+      private static final String GET_ONE = "SELECT customer_id, first_name, last_name, email, phone, address, city, state, zipcode FROM customer WHERE customer_id=?";
+      ```
+
+  * Pass statement with connection manager to postgreSQL database and return the result
+
+## Enhancements and Issues
+
+* Need to do preparestatement in each DAO
+* Usage is limited 

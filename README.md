@@ -1,3 +1,9 @@
+# Overview
+This project includes three Java Apps
+* **Java Grep App** is focused on Regex Pattern, Lambda & Steam API and to get familiar with Maven.  
+* **Java JDBC App** is based on the Lynda Java JDBC course([Link](https://www.lynda.com/Java-tutorials/Learning-JDBC/779748-2.html)) and to get Java JDBC implementation.  
+* **Twitter CLI App** is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..   
+
 # Java Grep App
 ## Introduction
 - Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file.
@@ -70,13 +76,12 @@ select * from customer where customer.id = id;
 
 * it selects the record from the customer table with the certain id.
 
-##Design and Implementaion
+## Design and Implementaion
 
 * PostgreSQL database scheme and table_info
-* p1
-* p2
-
+![p1](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Entity%20Relationship%20Diagram.png)
 * Workflow
+![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-11%20at%204.58.48%20PM.png)
 
   * Prepare Database connection manager
 
@@ -109,20 +114,21 @@ select * from customer where customer.id = id;
 
 ## Usage
 
-####Simplified Tweet Object
+#### Simplified Tweet Object
 
 In this app, we will only focus on some particular fields in the tweet object.  
 
 Tweet object docks [link](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
 
-```json
+```
 //Simplified Tweet Object
 {
    "created_at":"Mon Feb 18 21:24:39 +0000 2019",
    "id":1097607853932564480,
    "id_str":"1097607853932564480",
    "text":"test with loc223",
-   "entities":{"hashtags","user_mentions"},
+   "entities":{"hashtags",
+               "user_mentions"},
    "coordinates",
    "retweet_count",
    "favorite_count",
@@ -131,7 +137,7 @@ Tweet object docks [link](https://developer.twitter.com/en/docs/tweets/data-dict
 }
 ```
 
-####Create a tweet on your timeline
+#### Create a tweet on your timeline
 
 ```
 USAGE: TwitterCLI post "tweet_text" "latitude:longitude"
@@ -142,7 +148,7 @@ Description: create a tweet with a geotag and output the created tweet object (s
 * Tweet_text - tweet_text cannot exceed 140 UTF-8 encoded characters.
 * Latitude:longitude - Geo location
 
-####Read/Show a tweet by ID
+#### Read/Show a tweet by ID
 
 ```
 USAGE: TwitterCLI show tweet_id [field1, field2]
@@ -153,7 +159,7 @@ Description: Lookup a tweet by ID and print the tweet object in JSON format. Sho
 * Tweet_id - same as id_str in the tweet object
 * [field1, field2] - (Optional) A common-separated list of top-level fields from the tweet object (similar to SELECT clause in SQL)
 
-####Delete a tweet by tweet ID
+#### Delete a tweet by tweet ID
 
 ```
 USAGE: TwitterCLI delete tweet_ids
@@ -173,9 +179,9 @@ Description: Delete a list of tweets by id and print deleted tweet object
 | Runner     | Parse user CLI inputs and then calls the corresponding service methods |
 | Main       | Create above components and start applications               |
 
-<mark> TODO Diagram</mark>
+![p3](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Twitter.png)
 
-####Implement `HttpHelper`
+#### Implement `HttpHelper`
 
 ```java
 package ca.jrvs.apps.twitter.dao.helper;
@@ -232,9 +238,9 @@ public interface TwitterService {
 * It depends on `service`
 * Run `Main` in `TwitterCLI` and call `TwitterCLIRunner`
 
-# Spring Framework
+## Spring Framework
 
-####Traditional Dependency Management
+#### Traditional Dependency Management
 
 * Diagram for `TwitterCLI` app
 
@@ -261,6 +267,8 @@ public interface TwitterService {
   | @Service    | `TwitterServiceIMP`                    |
 
 * **SpringBoot Approach**
+
+![p4](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-10%20at%204.05.44%20PM.png)
 
   * Create a properties file `java_apps/src/main/resources/application.properties` and write
 

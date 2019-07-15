@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class JavaGrepImp implements JavaGrep {
@@ -39,12 +38,9 @@ public class JavaGrepImp implements JavaGrep {
 
     try {
       javaGrepImp.process();
-      ;
-    } catch (Exception ex) {
-      ex.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-
   }
 
   /**
@@ -55,7 +51,6 @@ public class JavaGrepImp implements JavaGrep {
   @Override
   public void process() throws IOException {
     List<String> matchedLines = new ArrayList<>();
-
     String rootPath = getRootPath();
 
     for (File file : listFilesLambda(rootPath)) {
@@ -67,8 +62,6 @@ public class JavaGrepImp implements JavaGrep {
     }
 
     writeToFile(matchedLines);
-
-
   }
 
   /**
@@ -85,23 +78,19 @@ public class JavaGrepImp implements JavaGrep {
 
   @Override
   public List<File> listFiles(String rootDir) {
-
     List<File> results = new ArrayList<>();
-
     File path = new File(rootDir);
     File[] files = path.listFiles();
 
-    Stream.of(files)
-        .forEach(f -> results.add(f));
-
+    for (File file : files) {
+      results.add(file);
+    }
     return results;
   }
 
 
   public List<String> readLinesLambda(File inputFile) throws IOException {
-
     return Files.lines(Paths.get(inputFile.getPath())).collect(Collectors.toList());
-
   }
 
   /**
@@ -155,8 +144,6 @@ public class JavaGrepImp implements JavaGrep {
   public boolean containsPattern(String line) {
 
     return line.matches(getRegex());
-
-    // return result;
   }
 
   /**

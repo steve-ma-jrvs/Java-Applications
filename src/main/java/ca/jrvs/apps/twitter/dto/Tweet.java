@@ -31,8 +31,8 @@ public class Tweet {
     private Coordinates coordinates;
     private Long retweet_count;
     private Long favorite_count;
-    private boolean favorited;
-    private boolean retweeted;
+    private Boolean favorited;
+    private Boolean retweeted;
 
     public String getCreated_at() {
         return created_at;
@@ -98,19 +98,19 @@ public class Tweet {
         this.favorite_count = favorite_count;
     }
 
-    public boolean isFavorited() {
+    public Boolean getFavorited() {
         return favorited;
     }
 
-    public void setFavorited(boolean favorited) {
+    public void setFavorited(Boolean favorited) {
         this.favorited = favorited;
     }
 
-    public boolean isRetweeted() {
+    public Boolean getRetweeted() {
         return retweeted;
     }
 
-    public void setRetweeted(boolean retweeted) {
+    public void setRetweeted(Boolean retweeted) {
         this.retweeted = retweeted;
     }
 }

@@ -26,7 +26,7 @@ public class ApacheHttpHelper implements HttpHelper {
   private HttpClient httpClient;
 
   /**
-   * Constructor, getting keys and tokens from env
+   * Constructor, getting keys and tokens
    */
   public ApacheHttpHelper(){
     String CONSUMER_KEY = System.getenv("CONSUMER_KEY");
@@ -40,16 +40,14 @@ public class ApacheHttpHelper implements HttpHelper {
 
     consumer = new CommonsHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
     consumer.setTokenWithSecret(ACCESS_TOKEN, TOKEN_SECRET);
-
     httpClient = new DefaultHttpClient();
   }
 
   @Override
   public HttpResponse httpPost(URI uri) {
-
-    // create an HTTP GET request
+    // create an HTTP POST request
     HttpPost request = new HttpPost(uri);
-    // sign the request (add headers)
+    // sign the request
     try {
       consumer.sign(request);
       return httpClient.execute(request);
@@ -61,10 +59,9 @@ public class ApacheHttpHelper implements HttpHelper {
 
   @Override
   public HttpResponse httpPost(URI uri, StringEntity stringEntity) {
-
-    // create an HTTP GET request
+    // create an HTTP POST request
     HttpPost request = new HttpPost(uri);
-    // sign the request (add headers)
+    // sign the request
     try {
       request.setEntity(stringEntity);
       consumer.sign(request);
@@ -76,16 +73,14 @@ public class ApacheHttpHelper implements HttpHelper {
 
   @Override
   public HttpResponse httpGet(URI uri) {
-
     // create an HTTP GET request
     HttpGet request = new HttpGet(uri);
-    // sign the request (add headers)
+    // sign the request
     try {
       consumer.sign(request);
       return httpClient.execute(request);
     } catch (OAuthException | IOException e) {
       throw new RuntimeException("Failed to execute", e);
     }
-
   }
 }

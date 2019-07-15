@@ -62,7 +62,6 @@ public class TwitterCLIRunner {
           "Invalid location format\nUSAGE: TwitterCLIApp post \"tweet_text\" \"latitude:longitude\"",
           e);
     }
-
     service.postTweet(tweet_txt, lat, lon);
   }
 

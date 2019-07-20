@@ -2,9 +2,11 @@
 
 This project includes three project: Twitter CLI App, Java Grep App and Java JDBC App.
 
-1. [Twitter CLI App](Twitter CLI App)
-2. [Java Grep App](Java Grep App)
-3. [Java JDBC App](Java JDBC App)
+1. [Twitter CLI App](#Twitter CLI App)
+2. [Java Grep App](#Java Grep App)
+3. [Java JDBC App](#Java JDBC App)
+
+<!-- toc -->
 
 # Twitter CLI App
 

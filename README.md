@@ -1,8 +1,10 @@
-[TOC]
-
 # Overview
 
 This project includes three project: Twitter CLI App, Java Grep App and Java JDBC App.
+
+1. [Twitter CLI App](Twitter CLI App)
+2. [Java Grep App](Java Grep App)
+3. [Java JDBC App](Java JDBC App)
 
 # Twitter CLI App
 
@@ -18,7 +20,7 @@ In this app, we will only focus on some particular fields in the tweet object.
 
 Tweet object docks [link](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
 
-```json
+```
 //Simplified Tweet Object
 {
    "created_at":"Mon Feb 18 21:24:39 +0000 2019",

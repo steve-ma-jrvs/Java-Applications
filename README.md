@@ -1,15 +1,14 @@
-# Still Working On it...
+[TOC]
+
 # Overview
-This project includes three Java Apps
-* **Twitter CLI App** is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..   
-* **Java Grep App** is focused on Regex Pattern, Lambda & Steam API and to get familiar with Maven.  
-* **Java JDBC App** is based on the Lynda Java JDBC course([Link](https://www.lynda.com/Java-tutorials/Learning-JDBC/779748-2.html)) and to get Java JDBC implementation.  
+
+This project includes three project: Twitter CLI App, Java Grep App and Java JDBC App.
 
 # Twitter CLI App
 
 ## Introduction
 
-* A Twitter CLI App that can create, read or delete tweets
+* A Twitter CLI App is a twitter command line API to create, read and delete your tweet. It covers Java JDBC, DAO, DTO, service implement, business logic, MAVEN, Spring Framework, Spring Boot, etc..
 
 ## Usage
 
@@ -19,7 +18,7 @@ In this app, we will only focus on some particular fields in the tweet object.
 
 Tweet object docks [link](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
 
-```
+```json
 //Simplified Tweet Object
 {
    "created_at":"Mon Feb 18 21:24:39 +0000 2019",
@@ -44,8 +43,8 @@ USAGE: TwitterCLI post "tweet_text" "latitude:longitude"
 Description: create a tweet with a geotag and output the created tweet object (simplified version) in JSON format.
 ```
 
-* Tweet_text - tweet_text cannot exceed 140 UTF-8 encoded characters.
-* Latitude:longitude - Geo location
+* `Tweet_text` - tweet_text cannot exceed 140 UTF-8 encoded characters.
+* `Latitude:longitude` - Geo location
 
 #### Read/Show a tweet by ID
 
@@ -55,8 +54,8 @@ USAGE: TwitterCLI show tweet_id [field1, field2]
 Description: Lookup a tweet by ID and print the tweet object in JSON format. Show all fields in JSON document if [field1,fields2] is empty. Otherwise, only show user specified [fields] in the JSON document.
 ```
 
-* Tweet_id - same as id_str in the tweet object
-* [field1, field2] - (Optional) A common-separated list of top-level fields from the tweet object (similar to SELECT clause in SQL)
+* `Tweet_id` - same as id_str in the tweet object
+* `[field1, field2]` - (Optional) A common-separated list of top-level fields from the tweet object (similar to SELECT clause in SQL)
 
 #### Delete a tweet by tweet ID
 
@@ -66,7 +65,7 @@ USAGE: TwitterCLI delete tweet_ids
 Description: Delete a list of tweets by id and print deleted tweet object
 ```
 
-* Tweet_ids - A comma-separated list of tweets.
+* `Tweet_ids` - A comma-separated list of tweets.
 
 ## Design and Implementaion
 
@@ -186,11 +185,11 @@ public interface TwitterService {
 
 ## Enhancements and Issues
 
-
+* Could only search tweet by ID and no advanced searching implements such as key word searching, username searching, etc..
 
 # Java Grep App
 ## Introduction
-- Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file.
+- Java Grep App searches for a text pattern recursively in a given directory, and output matched lines to a file. It is focused on Regex Pattern, Lambda & Steam API and Maven.
 ## Usage
 - The app takes three arguments:
 ```
@@ -200,9 +199,9 @@ Similar to
 egrep -r {regex} {rootPath} > {outFile}
 ```
 
-- regex - a special text string for describing a search pattern
-- rootPath - root directory path
-- outFile - output file name
+- `regex` - a special text string for describing a search pattern
+- `rootPath` - root directory path
+- `outFile` - output file name
 - Demo:
 ```python
 #note: regex must match entire line.  
@@ -226,7 +225,6 @@ writeToFile(matchedLines)
 - Libraries
   - Use Lambda and Stream API
   - Use Maven to manage the project and its dependencies
-- <mark>Todo Diagrams</mark>
 ## Enhancements and Issues
 
 * The app would return all lines matched the search pattern without exception, so may improve this app with centain filter.
@@ -236,7 +234,7 @@ writeToFile(matchedLines)
 
 ## Introduction
 
-*  Java JDBC App is a Java Database Connectivity application. The app connects the containerized Postgresql database and applies CRUD(Create, Read, Update and Delete) data access pattern with created DAO(Data Access Object) and DTO(Data Transfer Object).
+*  Java JDBC App is a Java Database Connectivity application. The app connects the containerized Postgresql database and applies CRUD(Create, Read, Update and Delete) data access pattern with created DAO(Data Access Object) and DTO(Data Transfer Object). It is based on the Lynda Java JDBC course([Link](https://www.lynda.com/Java-tutorials/Learning-JDBC/779748-2.html)) and to get Java JDBC implementation.  
 
 ## Usage
 
@@ -246,9 +244,9 @@ writeToFile(matchedLines)
 USAGE: tablename query_keyword query_arguments
 ```
 
-* Tablename - a specific table in the database { customer | order | salesperson | product }
-* query_keyword - { select | insert | update | delete }
-* query_arguments - row id and record arguments in order
+* `Tablename` - a specific table in the database { customer | order | salesperson | product }
+* `query_keyword` - { select | insert | update | delete }
+* `query_arguments` - row id and record arguments in order
 * Demo:
 
 ```sql

@@ -2,9 +2,9 @@
 
 This project includes three project: Twitter CLI App, Java Grep App and Java JDBC App.
 
-1. [Twitter CLI App](#Twitter CLI App)
-2. [Java Grep App](#Java Grep App)
-3. [Java JDBC App](#Java JDBC App)
+1. [Twitter CLI App](#Twitter-CLI-App)
+2. [Java Grep App](#Java-Grep-App)
+3. [Java JDBC App](#Java-JDBC-App)
 
 <!-- toc -->
 
@@ -170,7 +170,7 @@ public interface TwitterService {
 
 * **SpringBoot Approach**
 
-![p4](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-10%20at%204.05.44%20PM.png)
+![p4](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Spring%20Boot.png)
 
   * Create a properties file `java_apps/src/main/resources/application.properties` and write
 
@@ -267,7 +267,7 @@ select * from customer where customer.id = id;
 * PostgreSQL database scheme and table_info
 ![p1](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Entity%20Relationship%20Diagram.png)
 * Workflow
-![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/Screen%20Shot%202019-07-11%20at%204.58.48%20PM.png)
+![p2](https://github.com/steve-ma-jrvs/Java-Applications/blob/master/images/JDBC.png)
 
   * Prepare Database connection manager
 
